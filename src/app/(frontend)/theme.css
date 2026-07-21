@@ -1,0 +1,497 @@
+/* ============================================================================
+ * THEME.CSS - Blank Canvas Starter
+ * ============================================================================
+ *
+ * This file is intentionally MINIMAL. All visual identity should be created
+ * here based on PAGE_DESIGN.md specifications.
+ *
+ * STRUCTURE ONLY - No effects, no animations, no custom styling.
+ * Read PAGE_DESIGN.md and customize everything below.
+ *
+ * ============================================================================
+ */
+
+/* ============================================
+ * SECTION 1: COLOR PALETTE - Light Theme
+ * ============================================
+ * CUSTOMIZE: Replace these neutral colors with your brand colors from PAGE_DESIGN.md
+ */
+:root {
+  /* PRIMARY - Main brand color (buttons, links, accents) */
+  /* CUSTOMIZE: Set your primary brand color */
+  --primary: 220 14% 10%;
+  --primary-foreground: 0 0% 98%;
+
+  /* SECONDARY - Supporting color */
+  /* CUSTOMIZE: Set your secondary brand color */
+  --secondary: 220 13% 91%;
+  --secondary-foreground: 220 14% 10%;
+
+  /* ACCENT - Highlight color for special elements */
+  /* CUSTOMIZE: Set your accent color */
+  --accent: 220 13% 91%;
+  --accent-foreground: 220 14% 10%;
+
+  /* BACKGROUNDS */
+  --background: 0 0% 100%;
+  --foreground: 220 14% 10%;
+
+  --card: 0 0% 100%;
+  --card-foreground: 220 14% 10%;
+
+  --popover: 0 0% 100%;
+  --popover-foreground: 220 14% 10%;
+
+  /* MUTED - Subtle backgrounds and secondary text */
+  --muted: 220 13% 95%;
+  --muted-foreground: 220 10% 40%;
+
+  /* UI ELEMENTS */
+  --border: 220 13% 90%;
+  --input: 220 13% 90%;
+  --ring: 220 14% 10%;
+
+  /* SEMANTIC COLORS */
+  --success: 142 76% 36%;
+  --warning: 45 93% 47%;
+  --error: 0 84% 60%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+}
+
+/* ============================================
+ * SECTION 2: COLOR PALETTE - Dark Theme
+ * ============================================
+ * CUSTOMIZE: Adjust dark mode variants of your brand colors
+ */
+[data-theme='dark'] {
+  --primary: 0 0% 98%;
+  --primary-foreground: 220 14% 10%;
+
+  --secondary: 220 14% 15%;
+  --secondary-foreground: 0 0% 98%;
+
+  --accent: 220 14% 15%;
+  --accent-foreground: 0 0% 98%;
+
+  --background: 220 14% 4%;
+  --foreground: 0 0% 95%;
+
+  --card: 220 14% 8%;
+  --card-foreground: 0 0% 95%;
+
+  --popover: 220 14% 8%;
+  --popover-foreground: 0 0% 95%;
+
+  --muted: 220 14% 12%;
+  --muted-foreground: 0 0% 60%;
+
+  --border: 220 14% 18%;
+  --input: 220 14% 15%;
+  --ring: 0 0% 98%;
+
+  --success: 142 76% 42%;
+  --warning: 45 93% 50%;
+  --error: 0 84% 60%;
+
+  --destructive: 0 84% 60%;
+  --destructive-foreground: 0 0% 100%;
+}
+
+/* ============================================
+ * SECTION 3: CUSTOM EFFECTS
+ * ============================================
+ * CUSTOMIZE: Add effects based on PAGE_DESIGN.md
+ * Examples: glass morphism, gradients, glows, textures
+ *
+ * .glass { ... }
+ * .glow-primary { ... }
+ * .gradient-hero { ... }
+ */
+
+/* ============================================
+ * SECTION 4: CUSTOM ANIMATIONS
+ * ============================================
+ * CUSTOMIZE: Add animations based on PAGE_DESIGN.md
+ * Examples: fade-in, slide-up, pulse, counter animations
+ *
+ * @keyframes fade-in { ... }
+ * .animate-fade-in { ... }
+ */
+
+/* ============================================
+ * SECTION 5: HERO COMPONENT STYLING
+ * ============================================
+ * CUSTOMIZE: Style the hero section based on PAGE_DESIGN.md
+ */
+.hero-section {
+  position: relative;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  /* CUSTOMIZE: Add background, effects */
+}
+
+.hero-background {
+  position: absolute;
+  inset: 0;
+  background: hsl(var(--muted));
+  z-index: 0;
+  /* CUSTOMIZE: Add gradients, images, patterns */
+}
+
+.hero-content {
+  position: relative;
+  z-index: 10;
+  max-width: 800px;
+}
+
+.hero-headline {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  /* CUSTOMIZE: Add colors, text effects */
+}
+
+.hero-subheadline {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  color: hsl(var(--muted-foreground));
+  margin-top: 1.5rem;
+}
+
+.hero-cta-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: 600;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: opacity 0.2s;
+  /* CUSTOMIZE: Add hover effects, shadows */
+}
+
+.hero-cta-primary:hover {
+  opacity: 0.9;
+}
+
+.hero-cta-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  background: transparent;
+  color: hsl(var(--foreground));
+  font-weight: 600;
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: background 0.2s;
+  /* CUSTOMIZE: Add hover effects */
+}
+
+.hero-cta-secondary:hover {
+  background: hsl(var(--muted));
+}
+
+/* ============================================
+ * SECTION 6: FEATURES COMPONENT STYLING
+ * ============================================
+ * CUSTOMIZE: Style feature cards based on PAGE_DESIGN.md
+ */
+.features-section {
+  padding: 4rem 0;
+}
+
+.features-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.features-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  /* CUSTOMIZE: Add decorations, accents */
+}
+
+.features-description {
+  color: hsl(var(--muted-foreground));
+  max-width: 600px;
+  margin: 1rem auto 0;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.feature-card {
+  padding: 1.5rem;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  transition: transform 0.2s;
+  /* CUSTOMIZE: Add shadows, accents, hover effects */
+}
+
+.feature-card:hover {
+  transform: translateY(-4px);
+}
+
+.feature-icon {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: hsl(var(--muted));
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  /* CUSTOMIZE: Add colors, gradients */
+}
+
+.feature-title {
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.feature-description {
+  color: hsl(var(--muted-foreground));
+  line-height: 1.6;
+}
+
+.feature-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-top: 0.75rem;
+  color: hsl(var(--primary));
+  font-weight: 500;
+  text-decoration: none;
+}
+
+/* ============================================
+ * SECTION 7: TESTIMONIALS COMPONENT STYLING
+ * ============================================
+ * CUSTOMIZE: Style testimonial cards based on PAGE_DESIGN.md
+ */
+.testimonials-section {
+  padding: 4rem 0;
+  background: hsl(var(--muted) / 0.5);
+}
+
+.testimonials-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.testimonials-title {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+}
+
+.testimonials-description {
+  color: hsl(var(--muted-foreground));
+  max-width: 600px;
+  margin: 1rem auto 0;
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.testimonial-card {
+  padding: 1.5rem;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 0.5rem;
+  /* CUSTOMIZE: Add shadows, quote decorations */
+}
+
+.testimonial-rating {
+  display: flex;
+  gap: 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.testimonial-star {
+  width: 18px;
+  height: 18px;
+  color: hsl(var(--muted-foreground) / 0.3);
+}
+
+.testimonial-star.filled {
+  color: hsl(45 93% 47%);
+  /* CUSTOMIZE: Change star color to match brand */
+}
+
+.testimonial-quote {
+  line-height: 1.7;
+  margin-bottom: 1rem;
+}
+
+.testimonial-author {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding-top: 1rem;
+  border-top: 1px solid hsl(var(--border));
+}
+
+.testimonial-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: hsl(var(--muted));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+.testimonial-name {
+  font-weight: 600;
+}
+
+.testimonial-role {
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+}
+
+/* ============================================
+ * SECTION 8: CONTACT CTA COMPONENT STYLING
+ * ============================================
+ * CUSTOMIZE: Style contact section based on PAGE_DESIGN.md
+ */
+.contact-section {
+  position: relative;
+  padding: 4rem 0;
+}
+
+.contact-background {
+  position: absolute;
+  inset: 0;
+  background: hsl(var(--primary));
+  z-index: 0;
+  /* CUSTOMIZE: Add gradients, patterns */
+}
+
+.contact-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.contact-headline {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  color: hsl(var(--primary-foreground));
+}
+
+.contact-description {
+  color: hsl(var(--primary-foreground) / 0.8);
+  margin: 1rem 0 2rem;
+}
+
+.contact-info {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: hsl(var(--primary-foreground));
+  text-decoration: none;
+}
+
+.contact-social {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.contact-social-link {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: hsl(var(--primary-foreground) / 0.1);
+  border-radius: 50%;
+  color: hsl(var(--primary-foreground));
+  transition: background 0.2s;
+}
+
+.contact-social-link:hover {
+  background: hsl(var(--primary-foreground) / 0.2);
+}
+
+.contact-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.875rem 1.75rem;
+  background: hsl(var(--primary-foreground));
+  color: hsl(var(--primary));
+  font-weight: 600;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: opacity 0.2s;
+}
+
+.contact-cta:hover {
+  opacity: 0.9;
+}
+
+/* ============================================
+ * SECTION 9: HEADER & FOOTER STYLING
+ * ============================================
+ * CUSTOMIZE: Style navigation based on PAGE_DESIGN.md
+ */
+header {
+  background: hsl(var(--background) / 0.95);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid hsl(var(--border));
+}
+
+footer {
+  background: hsl(var(--muted));
+  color: hsl(var(--foreground));
+  /* CUSTOMIZE: Add styling based on PAGE_DESIGN.md */
+}
+
+/* ============================================
+ * SECTION 10: RESPONSIVE ADJUSTMENTS
+ * ============================================
+ */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 70vh;
+  }
+
+  .features-grid,
+  .testimonials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .contact-info {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
