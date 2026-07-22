@@ -1,1 +1,1 @@
-export { default, generateMetadata, generateStaticParams } from '../../../../posts/page/[pageNumber]/page'
+export { default, generateMetadata } from '../../../../posts/page/[pageNumber]/page'

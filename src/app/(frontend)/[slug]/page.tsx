@@ -18,29 +18,8 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 // ISR: Revalidate every 60 seconds (keeps CMS editing, serves cached pages)
 export const revalidate = 60
 
-export async function generateStaticParams() {
-  const payload = await getPayload({ config: configPromise })
-  const pages = await payload.find({
-    collection: 'pages',
-    draft: false,
-    limit: 1000,
-    overrideAccess: false,
-    pagination: false,
-    select: {
-      slug: true,
-    },
-  })
-
-  const params = pages.docs
-    ?.filter((doc) => {
-      return doc.slug !== 'home'
-    })
-    .map(({ slug }) => {
-      return { slug }
-    })
-
-  return params
-}
+// generateStaticParams usunięte: layout (frontend) jest force-dynamic (SSR),
+// a prerender w buildzie wymagałby bazy/sekretu, których docker build nie ma.
 
 type Args = {
   params: Promise<{
