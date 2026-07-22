@@ -60,3 +60,4 @@ ehthumbs.db
 *.pem
 
 docs-private
+.coolify.env
