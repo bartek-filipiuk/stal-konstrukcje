@@ -3,6 +3,7 @@ import React from 'react'
 import type { FeaturesBlock as FeaturesProps } from '@/payload-types'
 
 import { CMSLink } from '@/components/Link'
+import { Cog, Fence, Flame, Hammer, Ruler, ShieldCheck, Truck, Warehouse } from 'lucide-react'
 
 /**
  * Icon Map - Basic SVG icons
@@ -49,6 +50,15 @@ const iconMap: Record<string, React.ReactNode> = {
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
     </svg>
   ),
+  // Industry icons — lucide-react (tree-shakeable named imports)
+  fence: <Fence className="w-8 h-8" strokeWidth={2} />,
+  hammer: <Hammer className="w-8 h-8" strokeWidth={2} />,
+  warehouse: <Warehouse className="w-8 h-8" strokeWidth={2} />,
+  shield: <ShieldCheck className="w-8 h-8" strokeWidth={2} />,
+  ruler: <Ruler className="w-8 h-8" strokeWidth={2} />,
+  cog: <Cog className="w-8 h-8" strokeWidth={2} />,
+  flame: <Flame className="w-8 h-8" strokeWidth={2} />,
+  truck: <Truck className="w-8 h-8" strokeWidth={2} />,
 }
 
 /**
@@ -109,13 +119,14 @@ export const FeaturesBlock: React.FC<FeaturesProps> = ({
               <p className="feature-description text-muted-foreground mb-4">
                 {feature.description}
               </p>
-              {feature.link?.label && (
+              {feature.linkUrl && feature.linkLabel && (
                 <CMSLink
-                  {...feature.link}
+                  type="custom"
+                  url={feature.linkUrl}
                   appearance="inline"
                   className="feature-link text-primary font-medium inline-flex items-center gap-1"
                 >
-                  {feature.link.label}
+                  {feature.linkLabel}
                   <svg
                     className="w-4 h-4"
                     fill="none"

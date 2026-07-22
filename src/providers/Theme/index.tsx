@@ -37,14 +37,9 @@ export const ThemeProvider = ({ children }: { children: React.ReactNode }) => {
     let themeToSet: Theme = defaultTheme
     const preference = window.localStorage.getItem(themeLocalStorageKey)
 
+    // Dark-first: bez jawnego wyboru użytkownika trzymamy defaultTheme (dark).
     if (themeIsValid(preference)) {
       themeToSet = preference
-    } else {
-      const implicitPreference = getImplicitPreference()
-
-      if (implicitPreference) {
-        themeToSet = implicitPreference
-      }
     }
 
     document.documentElement.setAttribute('data-theme', themeToSet)

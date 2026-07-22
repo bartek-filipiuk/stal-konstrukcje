@@ -12,8 +12,8 @@ import { ContactInfo } from '@/components/ContactInfo'
 import { NewsletterForm } from '@/components/NewsletterForm'
 
 export async function Footer() {
-  const footerData: Footer = await getCachedGlobal('footer', 1)()
-  const siteSettings: SiteSetting = await getCachedGlobal('site-settings', 1)()
+  const footerData = (await getCachedGlobal('footer', 1)()) as Footer
+  const siteSettings = (await getCachedGlobal('site-settings', 1)()) as SiteSetting
 
   const navItems = footerData?.navItems || []
   const showSocialLinks = footerData?.showSocialLinks ?? true
@@ -37,7 +37,7 @@ export async function Footer() {
 
           {/* Navigation Column */}
           <div>
-            <h4 className="font-semibold mb-4 text-white">Navigation</h4>
+            <h4 className="font-semibold mb-4 text-white">Nawigacja</h4>
             <nav className="flex flex-col gap-2">
               {navItems.map(({ link }, i) => {
                 return (
@@ -55,7 +55,7 @@ export async function Footer() {
           {/* Contact Info Column */}
           {showContactInfo && siteSettings?.contact && (
             <div>
-              <h4 className="font-semibold mb-4 text-white">Contact</h4>
+              <h4 className="font-semibold mb-4 text-white">Kontakt</h4>
               <ContactInfo contact={siteSettings.contact} />
             </div>
           )}

@@ -55,14 +55,15 @@ export const HeaderNav: React.FC<{ data: HeaderType }> = ({ data }) => {
           <nav className="absolute top-0 left-0 right-0 bg-background/95 backdrop-blur-md border-b shadow-lg">
             <div className="container py-4 flex flex-col gap-4">
               {navItems.map(({ link }, i) => {
+                // CMSLink nie przyjmuje onClick — zamykamy menu na bąbelkującym kliku wrappera
                 return (
-                  <CMSLink
-                    key={i}
-                    {...link}
-                    appearance="link"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="text-xl font-medium py-2 border-b border-border/50 last:border-0"
-                  />
+                  <div key={i} onClick={() => setMobileMenuOpen(false)}>
+                    <CMSLink
+                      {...link}
+                      appearance="link"
+                      className="text-xl font-medium py-2 border-b border-border/50 last:border-0"
+                    />
+                  </div>
                 )
               })}
             </div>

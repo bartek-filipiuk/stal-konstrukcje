@@ -1,17 +1,26 @@
 import type { Metadata } from 'next'
 
 import { cn } from '@/utilities/ui'
-import { Space_Grotesk, JetBrains_Mono } from 'next/font/google'
+import { Inter, Oswald, JetBrains_Mono } from 'next/font/google'
 import React from 'react'
 
-const spaceGrotesk = Space_Grotesk({
+// Body — neutralny, wysoka czytelność (latin-ext = polskie znaki)
+const inter = Inter({
   subsets: ['latin', 'latin-ext'],
-  variable: '--font-space-grotesk',
+  variable: '--font-sans',
   display: 'swap',
 })
 
+// Nagłówki — kondensowany, szyldowy / industrialny
+const oswald = Oswald({
+  subsets: ['latin', 'latin-ext'],
+  variable: '--font-heading',
+  display: 'swap',
+})
+
+// Techniczne / liczby / etykiety — spec-sheet feel (ma polskie znaki)
 const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
+  subsets: ['latin', 'latin-ext'],
   variable: '--font-mono',
   display: 'swap',
 })
@@ -19,6 +28,7 @@ const jetbrainsMono = JetBrains_Mono({
 import { AdminBar } from '@/components/AdminBar'
 import { Footer } from '@/Footer/Component'
 import { Header } from '@/Header/Component'
+import { StickyCTA } from '@/components/StickyCTA'
 import { Providers } from '@/providers'
 import { InitTheme } from '@/providers/Theme/InitTheme'
 import { mergeOpenGraph } from '@/utilities/mergeOpenGraph'
@@ -28,6 +38,10 @@ import { defaultLocale, isValidLocale, type Locale } from '@/i18n'
 import './globals.css'
 import './theme.css'
 import { getServerSideURL } from '@/utilities/getURL'
+
+// SSR dla całej grupy (frontend): build nie prerenderuje stron, więc nie potrzebuje
+// bazy — obraz Dockera buduje się hermetycznie (Coolify nie ma DB w trakcie builda).
+export const dynamic = 'force-dynamic'
 
 async function getLocale(): Promise<Locale> {
   const headersList = await headers()
@@ -55,7 +69,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
   const locale = await getLocale()
 
   return (
-    <html className={cn(spaceGrotesk.variable, jetbrainsMono.variable)} lang={locale} suppressHydrationWarning>
+    <html className={cn(inter.variable, oswald.variable, jetbrainsMono.variable)} lang={locale} suppressHydrationWarning>
       <head>
         <InitTheme />
         <link href="/favicon.ico" rel="icon" sizes="32x32" />
@@ -72,6 +86,7 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <Header />
           <main className="pt-16">{children}</main>
           <Footer />
+          <StickyCTA />
         </Providers>
       </body>
     </html>

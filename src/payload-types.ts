@@ -207,6 +207,8 @@ export interface Page {
     | FeaturesBlock
     | TestimonialsBlock
     | ContactCTABlock
+    | GalleryBlock
+    | ProcessStepsBlock
     | CallToActionBlock
     | ContentBlock
     | MediaBlock
@@ -454,7 +456,17 @@ export interface User {
  * via the `definition` "GlassHeroBlock".
  */
 export interface GlassHeroBlock {
+  eyebrow?: string | null;
   headline: string;
+  accentWord?: string | null;
+  align?: ('left' | 'center') | null;
+  stats?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
   subheadline?: {
     root: {
       type: string;
@@ -522,7 +534,23 @@ export interface FeaturesBlock {
   sectionDescription?: string | null;
   features?:
     | {
-        icon: 'calendar' | 'book' | 'users' | 'star' | 'code' | 'globe' | 'heart' | 'lightning';
+        icon:
+          | 'calendar'
+          | 'book'
+          | 'users'
+          | 'star'
+          | 'code'
+          | 'globe'
+          | 'heart'
+          | 'lightning'
+          | 'fence'
+          | 'hammer'
+          | 'warehouse'
+          | 'shield'
+          | 'ruler'
+          | 'cog'
+          | 'flame'
+          | 'truck';
         title: string;
         description: string;
         linkUrl?: string | null;
@@ -782,6 +810,43 @@ export interface Form {
     | null;
   updatedAt: string;
   createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock".
+ */
+export interface GalleryBlock {
+  sectionTitle?: string | null;
+  sectionDescription?: string | null;
+  items?:
+    | {
+        image?: (number | null) | Media;
+        title: string;
+        category?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'gallery';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessStepsBlock".
+ */
+export interface ProcessStepsBlock {
+  sectionTitle?: string | null;
+  sectionDescription?: string | null;
+  steps?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'processSteps';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -1258,6 +1323,8 @@ export interface PagesSelect<T extends boolean = true> {
         features?: T | FeaturesBlockSelect<T>;
         testimonials?: T | TestimonialsBlockSelect<T>;
         contactCTA?: T | ContactCTABlockSelect<T>;
+        gallery?: T | GalleryBlockSelect<T>;
+        processSteps?: T | ProcessStepsBlockSelect<T>;
         cta?: T | CallToActionBlockSelect<T>;
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
@@ -1283,7 +1350,17 @@ export interface PagesSelect<T extends boolean = true> {
  * via the `definition` "GlassHeroBlock_select".
  */
 export interface GlassHeroBlockSelect<T extends boolean = true> {
+  eyebrow?: T;
   headline?: T;
+  accentWord?: T;
+  align?: T;
+  stats?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
   subheadline?: T;
   primaryCTA?:
     | T
@@ -1375,6 +1452,41 @@ export interface ContactCTABlockSelect<T extends boolean = true> {
         url?: T;
         label?: T;
         appearance?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryBlock_select".
+ */
+export interface GalleryBlockSelect<T extends boolean = true> {
+  sectionTitle?: T;
+  sectionDescription?: T;
+  items?:
+    | T
+    | {
+        image?: T;
+        title?: T;
+        category?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessStepsBlock_select".
+ */
+export interface ProcessStepsBlockSelect<T extends boolean = true> {
+  sectionTitle?: T;
+  sectionDescription?: T;
+  steps?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
       };
   id?: T;
   blockName?: T;

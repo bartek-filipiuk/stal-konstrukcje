@@ -14,7 +14,7 @@ import { Page, Post } from '@/payload-types'
 import { getServerSideURL } from '@/utilities/getURL'
 
 // Site name from environment variable or default
-const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'My Website'
+const SITE_NAME = process.env.NEXT_PUBLIC_SITE_NAME || 'STALMET Konstrukcje Stalowe'
 
 const generateTitle: GenerateTitle<Post | Page> = ({ doc }) => {
   return doc?.title ? `${doc.title} | ${SITE_NAME}` : SITE_NAME

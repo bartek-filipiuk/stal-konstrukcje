@@ -110,7 +110,7 @@
   }
   body {
     @apply bg-background text-foreground min-h-[100vh] flex flex-col;
-    font-family: var(--font-space-grotesk), system-ui, sans-serif;
+    font-family: var(--font-sans), system-ui, sans-serif;
   }
   code, pre, kbd, samp {
     font-family: var(--font-mono), ui-monospace, monospace;

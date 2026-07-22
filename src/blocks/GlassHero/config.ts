@@ -14,10 +14,40 @@ export const GlassHero: Block = {
   interfaceName: 'GlassHeroBlock',
   fields: [
     {
+      name: 'eyebrow',
+      type: 'text',
+      label: 'Eyebrow (mono label above headline)',
+    },
+    {
       name: 'headline',
       type: 'text',
       required: true,
       label: 'Headline',
+    },
+    {
+      name: 'accentWord',
+      type: 'text',
+      label: 'Accent fragment (part of headline rendered in accent color)',
+    },
+    {
+      name: 'align',
+      type: 'select',
+      defaultValue: 'left',
+      options: [
+        { label: 'Left', value: 'left' },
+        { label: 'Center', value: 'center' },
+      ],
+      label: 'Content alignment',
+    },
+    {
+      name: 'stats',
+      type: 'array',
+      maxRows: 4,
+      label: 'Stats row (value + label)',
+      fields: [
+        { name: 'value', type: 'text', required: true },
+        { name: 'label', type: 'text', required: true },
+      ],
     },
     {
       name: 'subheadline',

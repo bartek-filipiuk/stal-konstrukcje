@@ -1,245 +1,392 @@
 /* ============================================================================
- * THEME.CSS - Blank Canvas Starter
- * ============================================================================
- *
- * This file is intentionally MINIMAL. All visual identity should be created
- * here based on PAGE_DESIGN.md specifications.
- *
- * STRUCTURE ONLY - No effects, no animations, no custom styling.
- * Read PAGE_DESIGN.md and customize everything below.
- *
- * ============================================================================
- */
+ * THEME.CSS — STALMET Konstrukcje Stalowe
+ * Koncepcja: "Warsztatowa Solidność / Spec-Sheet"
+ * Grafit surowej stali + safety orange (jak oznaczenia BHP na hali).
+ * Dark-first (defaultTheme = 'dark'); :root = poprawny fallback jasny.
+ * Źródło decyzji: PAGE_DESIGN.md. Hexy przeliczone na HSL.
+ * ============================================================================ */
 
 /* ============================================
- * SECTION 1: COLOR PALETTE - Light Theme
- * ============================================
- * CUSTOMIZE: Replace these neutral colors with your brand colors from PAGE_DESIGN.md
- */
+ * SECTION 1: PALETA — Light (fallback)
+ * ============================================ */
 :root {
-  /* PRIMARY - Main brand color (buttons, links, accents) */
-  /* CUSTOMIZE: Set your primary brand color */
-  --primary: 220 14% 10%;
-  --primary-foreground: 0 0% 98%;
+  --primary: 21 89% 52%;            /* safety orange #F26419 */
+  --primary-foreground: 220 13% 9%; /* ciemny tekst na pomarańczu (WCAG AA 5.6:1) */
 
-  /* SECONDARY - Supporting color */
-  /* CUSTOMIZE: Set your secondary brand color */
-  --secondary: 220 13% 91%;
-  --secondary-foreground: 220 14% 10%;
+  --secondary: 218 9% 46%;          /* stal szczotkowana #6B7280 */
+  --secondary-foreground: 0 0% 100%;
 
-  /* ACCENT - Highlight color for special elements */
-  /* CUSTOMIZE: Set your accent color */
-  --accent: 220 13% 91%;
-  --accent-foreground: 220 14% 10%;
+  --accent: 21 89% 52%;
+  --accent-foreground: 220 13% 9%;
 
-  /* BACKGROUNDS */
-  --background: 0 0% 100%;
-  --foreground: 220 14% 10%;
+  --background: 210 20% 98%;        /* beton jasny */
+  --foreground: 220 13% 12%;
 
   --card: 0 0% 100%;
-  --card-foreground: 220 14% 10%;
+  --card-foreground: 220 13% 12%;
 
   --popover: 0 0% 100%;
-  --popover-foreground: 220 14% 10%;
+  --popover-foreground: 220 13% 12%;
 
-  /* MUTED - Subtle backgrounds and secondary text */
-  --muted: 220 13% 95%;
-  --muted-foreground: 220 10% 40%;
+  --muted: 210 16% 94%;
+  --muted-foreground: 215 12% 38%;
 
-  /* UI ELEMENTS */
-  --border: 220 13% 90%;
-  --input: 220 13% 90%;
-  --ring: 220 14% 10%;
+  --border: 214 15% 88%;
+  --input: 214 15% 88%;
+  --ring: 21 89% 52%;
 
-  /* SEMANTIC COLORS */
-  --success: 142 76% 36%;
-  --warning: 45 93% 47%;
-  --error: 0 84% 60%;
+  --success: 146 55% 40%;
+  --warning: 44 100% 48%;
+  --error: 0 72% 56%;
 
-  --destructive: 0 84% 60%;
+  --destructive: 0 72% 56%;
   --destructive-foreground: 0 0% 100%;
+
+  /* Tło sekcji naprzemiennej / „pas" */
+  --surface-deep: 210 16% 95%;
 }
 
 /* ============================================
- * SECTION 2: COLOR PALETTE - Dark Theme
- * ============================================
- * CUSTOMIZE: Adjust dark mode variants of your brand colors
- */
+ * SECTION 2: PALETA — Dark (główny motyw)
+ * ============================================ */
 [data-theme='dark'] {
-  --primary: 0 0% 98%;
-  --primary-foreground: 220 14% 10%;
+  --primary: 21 89% 52%;            /* #F26419 */
+  --primary-foreground: 220 13% 9%; /* ciemny tekst na pomarańczu */
 
-  --secondary: 220 14% 15%;
-  --secondary-foreground: 0 0% 98%;
+  --secondary: 218 9% 46%;
+  --secondary-foreground: 214 20% 96%;
 
-  --accent: 220 14% 15%;
-  --accent-foreground: 0 0% 98%;
+  --accent: 21 89% 52%;
+  --accent-foreground: 220 13% 9%;
 
-  --background: 220 14% 4%;
-  --foreground: 0 0% 95%;
+  --background: 220 13% 9%;         /* grafit #14161A */
+  --foreground: 214 20% 96%;        /* #F2F4F7 — na tle AAA 15.8:1 */
 
-  --card: 220 14% 8%;
-  --card-foreground: 0 0% 95%;
+  --card: 220 13% 14%;              /* #1E2127 */
+  --card-foreground: 214 20% 96%;
 
-  --popover: 220 14% 8%;
-  --popover-foreground: 0 0% 95%;
+  --popover: 220 13% 12%;
+  --popover-foreground: 214 20% 96%;
 
-  --muted: 220 14% 12%;
-  --muted-foreground: 0 0% 60%;
+  --muted: 220 13% 16%;
+  --muted-foreground: 212 12% 64%;  /* #9AA3AD — AA 7.4:1 */
 
-  --border: 220 14% 18%;
-  --input: 220 14% 15%;
-  --ring: 0 0% 98%;
+  --border: 217 13% 21%;            /* #2E333B */
+  --input: 216 12% 25%;             /* #3A4048 */
+  --ring: 21 89% 52%;
 
-  --success: 142 76% 42%;
-  --warning: 45 93% 50%;
-  --error: 0 84% 60%;
+  --success: 146 55% 42%;
+  --warning: 44 100% 50%;
+  --error: 0 72% 58%;
 
-  --destructive: 0 84% 60%;
+  --destructive: 0 72% 58%;
   --destructive-foreground: 0 0% 100%;
+
+  /* Tło sekcji naprzemiennej / „pas" (ciemniejszy grafit #0F1114) */
+  --surface-deep: 220 14% 7%;
 }
 
 /* ============================================
- * SECTION 3: CUSTOM EFFECTS
- * ============================================
- * CUSTOMIZE: Add effects based on PAGE_DESIGN.md
- * Examples: glass morphism, gradients, glows, textures
- *
- * .glass { ... }
- * .glow-primary { ... }
- * .gradient-hero { ... }
- */
+ * SECTION 3: TYPOGRAFIA
+ * Oswald (nagłówki) · Inter (body, z globals) · JetBrains Mono (technika)
+ * ============================================ */
+h1, h2, h3,
+.hero-headline,
+.features-title,
+.testimonials-title,
+.contact-headline,
+.feature-title {
+  font-family: var(--font-heading), 'Oswald', system-ui, sans-serif;
+}
+
+.hero-headline,
+.features-title,
+.testimonials-title,
+.contact-headline {
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  font-weight: 600;
+}
+
+/* Etykieta techniczna / liczby — spec-sheet (do użycia w treści) */
+.tech-label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.875rem;
+  color: hsl(var(--muted-foreground));
+}
+
+/* Słowo-akcent w nagłówku (pomarańcz) */
+.accent-word,
+.hero-headline .accent {
+  color: hsl(var(--primary));
+}
+
+/* "Kreska cięcia" pod tytułami sekcji */
+.features-title::after,
+.testimonials-title::after,
+.contact-headline::after,
+.gallery-title::after,
+.process-title::after {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 3px;
+  margin: 0.75rem auto 0;
+  background: hsl(var(--primary));
+}
+
+/* Sekcje z nagłówkiem wyrównanym do lewej (galeria, proces) — kreska bez centrowania */
+.gallery-title::after,
+.process-title::after {
+  margin-inline: 0;
+}
+
+/* Numerowane eyebrow sekcji: "01 —" w mono nad tytułem (licznik CSS) */
+body {
+  counter-reset: section;
+}
+.features-section,
+.gallery-section,
+.process-section,
+.testimonials-section,
+.contact-section {
+  counter-increment: section;
+}
+.features-title::before,
+.gallery-title::before,
+.process-title::before,
+.testimonials-title::before,
+.contact-headline::before {
+  content: counter(section, decimal-leading-zero) ' — ';
+  display: block;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.875rem;
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  color: hsl(var(--primary));
+  margin-bottom: 0.75rem;
+}
 
 /* ============================================
- * SECTION 4: CUSTOM ANIMATIONS
- * ============================================
- * CUSTOMIZE: Add animations based on PAGE_DESIGN.md
- * Examples: fade-in, slide-up, pulse, counter animations
- *
- * @keyframes fade-in { ... }
- * .animate-fade-in { ... }
- */
+ * SECTION 4: EFEKTY + ANIMACJE
+ * ============================================ */
+
+/* Siatka blueprint (rysunek techniczny) — subtelna, tylko dark */
+[data-theme='dark'] .hero-section,
+[data-theme='dark'] .contact-section {
+  background-image:
+    linear-gradient(hsl(0 0% 100% / 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, hsl(0 0% 100% / 0.035) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* WOW (jedyny) — "laser cut line" w hero: pomarańczowa linia przejeżdża raz */
+.hero-section::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 2px;
+  width: 100%;
+  background: hsl(var(--primary));
+  box-shadow: 0 0 16px hsl(var(--primary) / 0.7);
+  transform-origin: left center;
+  transform: scaleX(0);
+  animation: laser-cut 1.2s cubic-bezier(0.2, 0.7, 0.2, 1) 0.15s forwards;
+  z-index: 1;
+  pointer-events: none;
+}
+
+@keyframes laser-cut {
+  0%   { transform: scaleX(0); opacity: 1; }
+  70%  { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(1); opacity: 0; }
+}
+
+.hero-content {
+  animation: reveal-up 0.7s ease-out 0.5s both;
+}
+
+@keyframes reveal-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* prefers-reduced-motion: bez laser-cut i bez opóźnionego reveal (treść od razu widoczna) */
+@media (prefers-reduced-motion: reduce) {
+  .hero-section::after { animation: none; opacity: 0; }
+  .hero-content { animation: none; opacity: 1; transform: none; }
+}
 
 /* ============================================
- * SECTION 5: HERO COMPONENT STYLING
- * ============================================
- * CUSTOMIZE: Style the hero section based on PAGE_DESIGN.md
- */
+ * SECTION 5: HERO
+ * ============================================ */
 .hero-section {
   position: relative;
-  min-height: 80vh;
+  min-height: 85vh;
   display: flex;
   align-items: center;
-  /* CUSTOMIZE: Add background, effects */
+  overflow: hidden;
+  background: hsl(var(--surface-deep));
 }
 
-.hero-background {
+/* Wyższa specyficzność — nadpisuje utility bg-background na tym samym elemencie */
+.hero-section .hero-background {
   position: absolute;
   inset: 0;
-  background: hsl(var(--muted));
   z-index: 0;
-  /* CUSTOMIZE: Add gradients, images, patterns */
+  background:
+    radial-gradient(120% 80% at 50% 0%, hsl(var(--background) / 0) 40%, hsl(220 14% 7% / 0.6) 100%),
+    linear-gradient(180deg, hsl(220 13% 12%), hsl(220 14% 7%));
+}
+
+/* Ziarno (noise) — zabija plastikową płaskość dużej ciemnej płaszczyzny */
+.hero-section .hero-background::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E");
+  pointer-events: none;
+}
+
+/* Overlay pod ewentualne zdjęcie hali (min 60% ciemności) */
+.hero-overlay {
+  background: linear-gradient(180deg, hsl(220 14% 6% / 0.65), hsl(220 14% 6% / 0.8));
 }
 
 .hero-content {
   position: relative;
   z-index: 10;
-  max-width: 800px;
+}
+
+/* Wyrównanie sterowane polem `align` bloku */
+.hero-align-center .hero-content {
+  margin-inline: auto;
+  text-align: center;
+}
+.hero-align-center .hero-cta-container,
+.hero-align-center .hero-stats {
+  justify-content: center;
+}
+.hero-align-center .hero-subheadline {
+  margin-inline: auto;
+}
+
+/* Eyebrow — mono etykieta techniczna nad tytułem */
+.hero-eyebrow {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: hsl(var(--primary));
+  margin-bottom: 1.25rem;
 }
 
 .hero-headline {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 700;
-  line-height: 1.1;
-  /* CUSTOMIZE: Add colors, text effects */
+  font-size: clamp(2.75rem, 6.5vw, 5rem);
+  /* min 1.12 — polskie diakrytyki nad wersalikami (Ó Ś Ż Ź Ć Ń) nachodzą na wiersz wyżej przy ciaśniejszym */
+  line-height: 1.12;
 }
 
 .hero-subheadline {
-  font-size: clamp(1rem, 2vw, 1.25rem);
   color: hsl(var(--muted-foreground));
-  margin-top: 1.5rem;
+  opacity: 1;
+}
+
+/* Statystyki — spec-sheet pod CTA */
+.hero-stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2.5rem;
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid hsl(var(--border));
+}
+
+.hero-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.hero-stat-value {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
+  font-weight: 700;
+  color: hsl(var(--foreground));
+}
+
+.hero-stat-label {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: hsl(var(--muted-foreground));
 }
 
 .hero-cta-primary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.875rem 1.75rem;
   background: hsl(var(--primary));
   color: hsl(var(--primary-foreground));
-  font-weight: 600;
-  border-radius: 0.5rem;
-  text-decoration: none;
-  transition: opacity 0.2s;
-  /* CUSTOMIZE: Add hover effects, shadows */
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  box-shadow: 0 0 0 hsl(var(--primary) / 0);
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
 }
 
 .hero-cta-primary:hover {
-  opacity: 0.9;
+  transform: translateY(-2px);
+  background: hsl(21 84% 45%);           /* #D8500C */
+  box-shadow: 0 0 24px hsl(var(--primary) / 0.4);
 }
 
 .hero-cta-secondary {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  padding: 0.875rem 1.75rem;
   background: transparent;
   color: hsl(var(--foreground));
   font-weight: 600;
-  border: 1px solid hsl(var(--border));
-  border-radius: 0.5rem;
-  text-decoration: none;
-  transition: background 0.2s;
-  /* CUSTOMIZE: Add hover effects */
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border: 1px solid hsl(var(--secondary));
+  transition: border-color 0.2s, color 0.2s;
 }
 
 .hero-cta-secondary:hover {
-  background: hsl(var(--muted));
+  border-color: hsl(var(--primary));
+  color: hsl(var(--primary));
 }
 
 /* ============================================
- * SECTION 6: FEATURES COMPONENT STYLING
- * ============================================
- * CUSTOMIZE: Style feature cards based on PAGE_DESIGN.md
- */
+ * SECTION 6: FEATURES (oferta)
+ * ============================================ */
 .features-section {
-  padding: 4rem 0;
-}
-
-.features-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.features-title {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  font-weight: 700;
-  /* CUSTOMIZE: Add decorations, accents */
-}
-
-.features-description {
-  color: hsl(var(--muted-foreground));
-  max-width: 600px;
-  margin: 1rem auto 0;
-}
-
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 1.5rem;
+  padding: 5rem 0;
 }
 
 .feature-card {
-  padding: 1.5rem;
+  position: relative;
+  padding: 1.75rem;
   background: hsl(var(--card));
   border: 1px solid hsl(var(--border));
-  border-radius: 0.5rem;
-  transition: transform 0.2s;
-  /* CUSTOMIZE: Add shadows, accents, hover effects */
+  border-left: 3px solid hsl(var(--border));
+  border-radius: 4px;
+  box-shadow: 0 2px 8px hsl(0 0% 0% / 0.35);
+  transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 
 .feature-card:hover {
   transform: translateY(-4px);
+  border-color: hsl(var(--input));
+  border-left-color: hsl(var(--primary));
+  box-shadow: 0 8px 24px hsl(0 0% 0% / 0.45);
 }
 
 .feature-icon {
@@ -249,21 +396,20 @@
   align-items: center;
   justify-content: center;
   background: hsl(var(--muted));
-  border-radius: 0.5rem;
-  margin-bottom: 1rem;
-  /* CUSTOMIZE: Add colors, gradients */
-}
-
-.feature-title {
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-bottom: 0.5rem;
-}
-
-.feature-description {
+  border: 1px solid hsl(var(--border));
+  border-radius: 4px;
   color: hsl(var(--muted-foreground));
-  line-height: 1.6;
+  margin-bottom: 1rem;
+  transition: color 0.2s, border-color 0.2s;
 }
+
+.feature-card:hover .feature-icon {
+  color: hsl(var(--primary));
+  border-color: hsl(var(--primary));
+}
+
+.feature-title { font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; }
+.feature-description { color: hsl(var(--muted-foreground)); line-height: 1.6; }
 
 .feature-link {
   display: inline-flex;
@@ -271,227 +417,381 @@
   gap: 0.25rem;
   margin-top: 0.75rem;
   color: hsl(var(--primary));
-  font-weight: 500;
+  font-weight: 600;
   text-decoration: none;
 }
+.feature-link:hover { text-decoration: underline; }
 
 /* ============================================
- * SECTION 7: TESTIMONIALS COMPONENT STYLING
- * ============================================
- * CUSTOMIZE: Style testimonial cards based on PAGE_DESIGN.md
- */
+ * SECTION 7: TESTIMONIALS (opinie)
+ * ============================================ */
 .testimonials-section {
-  padding: 4rem 0;
-  background: hsl(var(--muted) / 0.5);
-}
-
-.testimonials-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
-
-.testimonials-title {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  font-weight: 700;
-}
-
-.testimonials-description {
-  color: hsl(var(--muted-foreground));
-  max-width: 600px;
-  margin: 1rem auto 0;
-}
-
-.testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
+  padding: 5rem 0;
+  background: hsl(var(--surface-deep));
 }
 
 .testimonial-card {
-  padding: 1.5rem;
+  position: relative;
+  padding: 1.75rem;
   background: hsl(var(--card));
   border: 1px solid hsl(var(--border));
-  border-radius: 0.5rem;
-  /* CUSTOMIZE: Add shadows, quote decorations */
+  border-radius: 4px;
 }
 
-.testimonial-rating {
-  display: flex;
-  gap: 0.25rem;
-  margin-bottom: 1rem;
+.testimonial-card::before {
+  content: '\201C';
+  position: absolute;
+  top: 0.25rem;
+  right: 1rem;
+  font-family: var(--font-heading), serif;
+  font-size: 3rem;
+  line-height: 1;
+  color: hsl(var(--primary) / 0.2);
 }
 
-.testimonial-star {
-  width: 18px;
-  height: 18px;
-  color: hsl(var(--muted-foreground) / 0.3);
-}
+.testimonial-star { color: hsl(var(--border)); }
+.testimonial-star.filled { color: hsl(var(--primary)); }
 
-.testimonial-star.filled {
-  color: hsl(45 93% 47%);
-  /* CUSTOMIZE: Change star color to match brand */
-}
-
-.testimonial-quote {
-  line-height: 1.7;
-  margin-bottom: 1rem;
-}
-
-.testimonial-author {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding-top: 1rem;
-  border-top: 1px solid hsl(var(--border));
-}
-
-.testimonial-avatar {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background: hsl(var(--muted));
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 600;
-  font-size: 0.875rem;
-}
-
-.testimonial-name {
-  font-weight: 600;
-}
-
+.testimonial-quote { line-height: 1.7; margin-bottom: 1rem; }
+.testimonial-name { font-weight: 600; }
 .testimonial-role {
-  font-size: 0.875rem;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
   color: hsl(var(--muted-foreground));
+}
+.testimonial-avatar {
+  background: hsl(var(--muted));
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--foreground));
 }
 
 /* ============================================
- * SECTION 8: CONTACT CTA COMPONENT STYLING
- * ============================================
- * CUSTOMIZE: Style contact section based on PAGE_DESIGN.md
- */
+ * SECTION 8: CONTACT CTA
+ * ============================================ */
 .contact-section {
   position: relative;
-  padding: 4rem 0;
+  padding: 5rem 0;
+  background: hsl(var(--surface-deep));
+  overflow: hidden;
 }
 
-.contact-background {
+/* Pas ostrzegawczy (czarno-pomarańczowy) — jedyne miejsce na stronie */
+.contact-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 8px;
+  background: repeating-linear-gradient(
+    -45deg,
+    hsl(var(--primary)) 0 16px,
+    hsl(220 14% 7%) 16px 32px
+  );
+  z-index: 2;
+}
+
+/* Nadpisanie pełnego pomarańczowego tła z boilerplate na ciemne */
+.contact-section .contact-background {
   position: absolute;
   inset: 0;
-  background: hsl(var(--primary));
   z-index: 0;
-  /* CUSTOMIZE: Add gradients, patterns */
+  background:
+    radial-gradient(80% 60% at 50% 100%, hsl(var(--primary) / 0.12), transparent 70%),
+    hsl(var(--surface-deep));
 }
 
-.contact-content {
-  position: relative;
-  z-index: 10;
-  text-align: center;
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-.contact-headline {
-  font-size: clamp(1.5rem, 3vw, 2rem);
-  font-weight: 700;
-  color: hsl(var(--primary-foreground));
-}
-
-.contact-description {
-  color: hsl(var(--primary-foreground) / 0.8);
-  margin: 1rem 0 2rem;
-}
-
-.contact-info {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 1.5rem;
-  margin-bottom: 2rem;
-}
+.contact-content { position: relative; z-index: 10; }
+.contact-headline { color: hsl(var(--foreground)); }
+.contact-description { color: hsl(var(--muted-foreground)); }
 
 .contact-link {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: hsl(var(--primary-foreground));
-  text-decoration: none;
+  color: hsl(var(--foreground));
+  transition: color 0.2s;
 }
-
-.contact-social {
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-bottom: 2rem;
-}
+.contact-link:hover { color: hsl(var(--primary)); }
 
 .contact-social-link {
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: hsl(var(--primary-foreground) / 0.1);
-  border-radius: 50%;
-  color: hsl(var(--primary-foreground));
-  transition: background 0.2s;
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  color: hsl(var(--muted-foreground));
+  transition: color 0.2s, border-color 0.2s;
 }
-
 .contact-social-link:hover {
-  background: hsl(var(--primary-foreground) / 0.2);
+  color: hsl(var(--primary));
+  border-color: hsl(var(--primary));
 }
 
 .contact-cta {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-radius: 4px;
   padding: 0.875rem 1.75rem;
-  background: hsl(var(--primary-foreground));
-  color: hsl(var(--primary));
-  font-weight: 600;
-  border-radius: 0.5rem;
   text-decoration: none;
-  transition: opacity 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
 }
-
 .contact-cta:hover {
-  opacity: 0.9;
+  transform: translateY(-2px);
+  background: hsl(21 84% 45%);
+  box-shadow: 0 0 24px hsl(var(--primary) / 0.4);
 }
 
 /* ============================================
- * SECTION 9: HEADER & FOOTER STYLING
- * ============================================
- * CUSTOMIZE: Style navigation based on PAGE_DESIGN.md
- */
+ * SECTION 9: HEADER & FOOTER
+ * ============================================ */
 header {
-  background: hsl(var(--background) / 0.95);
+  background: hsl(var(--background) / 0.9);
   backdrop-filter: blur(8px);
   border-bottom: 1px solid hsl(var(--border));
 }
 
+/* Strona jednojęzyczna, bez wyszukiwarki — chowamy search i przełącznik języka */
+header a[href='/search'],
+header a:has(.lucide-globe) {
+  display: none;
+}
+
 footer {
-  background: hsl(var(--muted));
+  position: relative;
+  background: hsl(var(--surface-deep));
   color: hsl(var(--foreground));
-  /* CUSTOMIZE: Add styling based on PAGE_DESIGN.md */
+  border-top: 1px solid hsl(var(--border));
+}
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: hsl(var(--primary));
+}
+
+/* Ogólny styl przycisków radius = "stalowy" (ostry) */
+a, button { --tw-ring-color: hsl(var(--ring)); }
+
+/* Focus widoczny (a11y) — pomarańczowy outline */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
 }
 
 /* ============================================
- * SECTION 10: RESPONSIVE ADJUSTMENTS
- * ============================================
- */
+ * SECTION 9b: GALLERY (realizacje)
+ * ============================================ */
+.gallery-section {
+  padding: 5rem 0;
+}
+
+.gallery-item {
+  background: hsl(var(--card));
+  border: 1px solid hsl(var(--border));
+  border-radius: 4px;
+  overflow: hidden;
+  transition: border-color 0.2s, transform 0.2s;
+}
+
+.gallery-item:hover {
+  border-color: hsl(var(--primary));
+  transform: translateY(-4px);
+}
+
+.gallery-item-media {
+  overflow: hidden;
+}
+
+.gallery-item-media img {
+  transition: transform 0.35s ease;
+}
+
+.gallery-item:hover .gallery-item-media img {
+  transform: scale(1.04);
+}
+
+/* Placeholder gdy brak zdjęcia — ukośne pasy + mono etykieta */
+.gallery-placeholder {
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      hsl(var(--muted)) 0 14px,
+      hsl(var(--card)) 14px 28px
+    );
+}
+
+.gallery-placeholder::after {
+  content: 'ZDJĘCIE WKRÓTCE';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  color: hsl(var(--muted-foreground));
+}
+
+.gallery-item-caption {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  padding: 1rem 1.25rem;
+  border-top: 1px solid hsl(var(--border));
+}
+
+.gallery-item-title {
+  font-family: var(--font-heading), sans-serif;
+  font-weight: 600;
+  font-size: 1.05rem;
+}
+
+.gallery-item-category {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: hsl(var(--muted-foreground));
+}
+
+/* ============================================
+ * SECTION 9c: PROCESS STEPS (jak pracujemy)
+ * ============================================ */
+.process-section {
+  padding: 5rem 0;
+  background: hsl(var(--surface-deep));
+}
+
+.process-step {
+  border-top: 2px solid hsl(var(--border));
+  padding-top: 1.25rem;
+  transition: border-color 0.2s;
+}
+
+.process-step:hover {
+  border-top-color: hsl(var(--primary));
+}
+
+.process-step-number {
+  display: block;
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: hsl(var(--primary));
+  margin-bottom: 0.75rem;
+}
+
+/* ============================================
+ * SECTION 9d: STICKY MOBILE CTA
+ * ============================================ */
+.sticky-cta {
+  border-top: 1px solid hsl(var(--border));
+  background: hsl(var(--surface-deep) / 0.97);
+  backdrop-filter: blur(8px);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+.sticky-cta-phone,
+.sticky-cta-primary {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  font-family: var(--font-heading), sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  text-decoration: none;
+}
+
+.sticky-cta-phone {
+  color: hsl(var(--foreground));
+}
+
+.sticky-cta-primary {
+  background: hsl(var(--primary));
+  color: hsl(var(--primary-foreground));
+}
+
+/* Stopka nie chowa się pod sticky barem na mobile */
+@media (max-width: 767px) {
+  footer {
+    padding-bottom: 72px;
+  }
+}
+
+/* ============================================
+ * SECTION 9e: DEKORACJA — oversized outline text
+ * Jedna sekcja na stronę (opinie): "STAL" w tle
+ * ============================================ */
+.testimonials-section {
+  overflow: hidden;
+}
+
+.testimonials-section::after {
+  content: 'STAL';
+  position: absolute;
+  right: -2rem;
+  bottom: -3rem;
+  z-index: 0;
+  font-family: var(--font-heading), sans-serif;
+  font-weight: 700;
+  font-size: clamp(8rem, 22vw, 18rem);
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px hsl(var(--foreground) / 0.07);
+  pointer-events: none;
+}
+
+.testimonials-section {
+  position: relative;
+}
+
+.testimonials-section .container {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================
+ * SECTION 9f: LOGO (tekstowe, bez ucinania)
+ * ============================================ */
+.site-logo-primary {
+  font-family: var(--font-heading), sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: hsl(var(--foreground));
+}
+
+.site-logo-primary::after {
+  content: '';
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  margin-left: 4px;
+  background: hsl(var(--primary));
+}
+
+.site-logo-suffix {
+  font-family: var(--font-mono), ui-monospace, monospace;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: hsl(var(--muted-foreground));
+}
+
+/* ============================================
+ * SECTION 10: RESPONSIVE
+ * ============================================ */
 @media (max-width: 768px) {
-  .hero-section {
-    min-height: 70vh;
-  }
-
+  .hero-section { min-height: 75vh; }
   .features-grid,
-  .testimonials-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .contact-info {
-    flex-direction: column;
-    gap: 1rem;
-  }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .contact-info { flex-direction: column; gap: 1rem; }
 }

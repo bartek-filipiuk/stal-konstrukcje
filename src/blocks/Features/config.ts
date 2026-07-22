@@ -34,6 +34,15 @@ export const Features: Block = {
             { label: 'Globe', value: 'globe' },
             { label: 'Heart', value: 'heart' },
             { label: 'Lightning', value: 'lightning' },
+            // Industry icons (lucide-react)
+            { label: 'Fence', value: 'fence' },
+            { label: 'Hammer', value: 'hammer' },
+            { label: 'Warehouse', value: 'warehouse' },
+            { label: 'Shield Check', value: 'shield' },
+            { label: 'Ruler', value: 'ruler' },
+            { label: 'Cog', value: 'cog' },
+            { label: 'Flame (welding)', value: 'flame' },
+            { label: 'Truck', value: 'truck' },
           ],
         },
         {

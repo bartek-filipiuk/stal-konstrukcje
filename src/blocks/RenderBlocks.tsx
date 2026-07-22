@@ -11,6 +11,8 @@ import { GlassHeroBlock } from '@/blocks/GlassHero/Component'
 import { FeaturesBlock } from '@/blocks/Features/Component'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
 import { ContactCTABlock } from '@/blocks/ContactCTA/Component'
+import { GalleryBlock } from '@/blocks/Gallery/Component'
+import { ProcessStepsBlock } from '@/blocks/ProcessSteps/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
@@ -22,6 +24,8 @@ const blockComponents = {
   features: FeaturesBlock,
   testimonials: TestimonialsBlock,
   contactCTA: ContactCTABlock,
+  gallery: GalleryBlock,
+  processSteps: ProcessStepsBlock,
 }
 
 export const RenderBlocks: React.FC<{

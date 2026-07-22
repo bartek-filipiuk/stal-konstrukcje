@@ -7,20 +7,25 @@ interface Props {
   priority?: 'auto' | 'high' | 'low'
 }
 
+/**
+ * Text logo. Splits the site name on the first space:
+ * first word = primary mark, the rest = small suffix (hidden on mobile).
+ * Sizes naturally — no fixed-width SVG, so long names don't truncate.
+ * Style via theme.css: .site-logo, .site-logo-primary, .site-logo-suffix
+ */
 export const Logo = (props: Props) => {
   const { className } = props
   const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'My Website'
+  const [primary, ...rest] = siteName.split(' ')
+  const suffix = rest.join(' ')
 
   return (
-    <svg
-      className={clsx('max-w-[12rem] w-full h-[34px]', className)}
-      viewBox="0 0 240 34"
-      fill="currentColor"
-      aria-label={`${siteName} Logo`}
+    <span
+      className={clsx('site-logo inline-flex items-baseline gap-2 whitespace-nowrap', className)}
+      aria-label={siteName}
     >
-      <text x="0" y="26" fontSize="24" fontWeight="bold" letterSpacing="1">
-        {siteName}
-      </text>
-    </svg>
+      <span className="site-logo-primary text-2xl font-bold tracking-wide">{primary}</span>
+      {suffix && <span className="site-logo-suffix hidden sm:inline">{suffix}</span>}
+    </span>
   )
 }

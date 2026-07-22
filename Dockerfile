@@ -25,6 +25,13 @@ WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
+# NEXT_PUBLIC_* wypiekają się w bundlu podczas builda — Coolify poda je jako --build-arg,
+# ale bez deklaracji ARG Docker by je zignorował
+ARG NEXT_PUBLIC_SERVER_URL
+ARG NEXT_PUBLIC_SITE_NAME
+ENV NEXT_PUBLIC_SERVER_URL=$NEXT_PUBLIC_SERVER_URL
+ENV NEXT_PUBLIC_SITE_NAME=$NEXT_PUBLIC_SITE_NAME
+
 # Next.js collects completely anonymous telemetry data about general usage.
 # Learn more here: https://nextjs.org/telemetry
 # Uncomment the following line in case you want to disable telemetry during the build.
@@ -50,6 +57,13 @@ RUN adduser --system --uid 1001 nextjs
 
 # Remove this line if you do not have this folder
 COPY --from=builder /app/public ./public
+
+# Obrazy dla seedu (hero) — czytane z cwd w runtime; standalone ich nie trace'uje
+COPY --from=builder --chown=nextjs:nodejs /app/seed-images ./seed-images
+
+# Katalog uploadów Payloada — musi istnieć z właścicielem nextjs, żeby named volume
+# (persistent storage w Coolify) odziedziczył uprawnienia przy pierwszym montażu
+RUN mkdir -p public/media && chown nextjs:nodejs public/media
 
 # Set the correct permission for prerender cache
 RUN mkdir .next

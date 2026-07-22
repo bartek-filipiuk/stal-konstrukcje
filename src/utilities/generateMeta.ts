@@ -26,9 +26,8 @@ export const generateMeta = async (args: {
 
   const ogImage = getImageURL(doc?.meta?.image)
 
-  const title = doc?.meta?.title
-    ? doc?.meta?.title + ' | Payload Website Template'
-    : 'Payload Website Template'
+  const siteName = process.env.NEXT_PUBLIC_SITE_NAME || 'STALMET Konstrukcje Stalowe'
+  const title = doc?.meta?.title ? `${doc.meta.title} | ${siteName}` : siteName
 
   return {
     description: doc?.meta?.description,

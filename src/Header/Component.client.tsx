@@ -36,7 +36,8 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
     >
       <div className="container py-4 flex justify-between items-center">
         <Link href="/">
-          <Logo loading="eager" priority="high" className="dark:invert" />
+          {/* Bez dark:invert — logo ma być IDENTYCZNE w headerze i stopce */}
+          <Logo loading="eager" priority="high" />
         </Link>
         <HeaderNav data={data} />
       </div>

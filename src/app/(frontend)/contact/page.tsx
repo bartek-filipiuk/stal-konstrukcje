@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 }
 
 export default async function ContactPage() {
-  const siteSettings: SiteSetting = await getCachedGlobal('site-settings', 1)()
+  const siteSettings = (await getCachedGlobal('site-settings', 1)()) as SiteSetting
 
   return (
     <div className="container py-20">

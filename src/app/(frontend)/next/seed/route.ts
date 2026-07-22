@@ -4,7 +4,21 @@ import config from '@payload-config'
 
 export const maxDuration = 60 // This function can run for a maximum of 60 seconds
 
-export async function POST(): Promise<Response> {
+// Seed KASUJE i odtwarza całą treść. W produkcji wymaga sekretu:
+//   curl -X POST "https://domena/next/seed?secret=$SEED_SECRET"
+// Bez SEED_SECRET w env produkcyjny seed jest wyłączony całkowicie.
+function isAuthorized(request: Request): boolean {
+  if (process.env.NODE_ENV !== 'production') return true
+  const secret = process.env.SEED_SECRET
+  if (!secret) return false
+  const url = new URL(request.url)
+  return url.searchParams.get('secret') === secret
+}
+
+export async function POST(request: Request): Promise<Response> {
+  if (!isAuthorized(request)) {
+    return new Response('Forbidden', { status: 403 })
+  }
   const payload = await getPayload({ config })
 
   try {
@@ -17,6 +31,6 @@ export async function POST(): Promise<Response> {
   }
 }
 
-export async function GET(): Promise<Response> {
-  return POST()
+export async function GET(request: Request): Promise<Response> {
+  return POST(request)
 }

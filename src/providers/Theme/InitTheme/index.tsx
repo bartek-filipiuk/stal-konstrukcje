@@ -29,14 +29,10 @@ export const InitTheme: React.FC = () => {
     var themeToSet = '${defaultTheme}'
     var preference = window.localStorage.getItem('${themeLocalStorageKey}')
 
+    // Dark-first: bez jawnego wyboru użytkownika trzymamy defaultTheme (dark),
+    // nie podążamy za preferencją OS. getImplicitPreference zostaje dla opcji "Auto".
     if (themeIsValid(preference)) {
       themeToSet = preference
-    } else {
-      var implicitPreference = getImplicitPreference()
-
-      if (implicitPreference) {
-        themeToSet = implicitPreference
-      }
     }
 
     document.documentElement.setAttribute('data-theme', themeToSet)

@@ -9,29 +9,50 @@ import { Media } from '@/components/Media'
 /**
  * GlassHero Block - Minimal Structure
  *
- * This component provides STRUCTURE only.
- * All visual styling should be added via theme.css based on PAGE_DESIGN.md
+ * STRUCTURE only — visual styling lives in theme.css.
+ * Alignment is data-driven (`align` field) instead of hardcoded utilities.
  *
  * CSS classes to customize in theme.css:
- * - .hero-section: Main section wrapper
- * - .hero-background: Background layer
- * - .hero-content: Content container
- * - .hero-headline: Main heading
- * - .hero-subheadline: Supporting text
- * - .hero-cta-primary: Primary button
- * - .hero-cta-secondary: Secondary button
+ * - .hero-section (+ .hero-align-left / .hero-align-center)
+ * - .hero-background, .hero-overlay
+ * - .hero-content, .hero-eyebrow, .hero-headline (+ span.accent)
+ * - .hero-subheadline
+ * - .hero-stats, .hero-stat, .hero-stat-value, .hero-stat-label
+ * - .hero-cta-primary, .hero-cta-secondary
  */
 export const GlassHeroBlock: React.FC<GlassHeroProps> = ({
+  eyebrow,
   headline,
+  accentWord,
+  align,
+  stats,
   subheadline,
   primaryCTA,
   secondaryCTA,
   backgroundMedia,
 }) => {
+  // Headline with optional accent fragment (first occurrence)
+  const renderHeadline = () => {
+    if (!headline) return null
+    if (accentWord && headline.includes(accentWord)) {
+      const idx = headline.indexOf(accentWord)
+      return (
+        <>
+          {headline.slice(0, idx)}
+          <span className="accent">{accentWord}</span>
+          {headline.slice(idx + accentWord.length)}
+        </>
+      )
+    }
+    return headline
+  }
+
   return (
-    <section className="hero-section relative min-h-[90vh] flex items-center justify-center overflow-hidden">
+    <section
+      className={`hero-section hero-align-${align || 'left'} relative min-h-[85vh] flex items-center overflow-hidden`}
+    >
       {/* Background layer - style via .hero-background in theme.css */}
-      <div className="hero-background absolute inset-0 bg-background" />
+      <div className="hero-background absolute inset-0" />
 
       {/* Background media if provided */}
       {backgroundMedia && typeof backgroundMedia === 'object' && (
@@ -39,6 +60,7 @@ export const GlassHeroBlock: React.FC<GlassHeroProps> = ({
           <Media
             resource={backgroundMedia}
             fill
+            pictureClassName="absolute inset-0"
             className="object-cover"
             priority
           />
@@ -49,35 +71,44 @@ export const GlassHeroBlock: React.FC<GlassHeroProps> = ({
 
       {/* Content container */}
       <div className="container relative z-10">
-        <div className="hero-content max-w-4xl mx-auto text-center p-8 md:p-12 lg:p-16">
-          {headline && (
-            <h1 className="hero-headline text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
-              {headline}
-            </h1>
-          )}
+        <div className="hero-content max-w-4xl py-16 md:py-24">
+          {eyebrow && <p className="hero-eyebrow">{eyebrow}</p>}
+
+          {headline && <h1 className="hero-headline font-bold mb-6">{renderHeadline()}</h1>}
 
           {subheadline && (
-            <div className="hero-subheadline text-lg md:text-xl mb-8 max-w-2xl mx-auto opacity-80">
+            <div className="hero-subheadline text-lg md:text-xl mb-8 max-w-2xl">
               <RichText data={subheadline} enableGutter={false} />
             </div>
           )}
 
           {(primaryCTA?.label || secondaryCTA?.label) && (
-            <div className="hero-cta-container flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="hero-cta-container flex flex-col sm:flex-row gap-4">
               {primaryCTA && primaryCTA.label && (
                 <CMSLink
                   {...primaryCTA}
                   size="lg"
-                  className="hero-cta-primary px-8 py-4 rounded-lg font-semibold"
+                  className="hero-cta-primary px-8 py-4 font-semibold"
                 />
               )}
               {secondaryCTA && secondaryCTA.label && (
                 <CMSLink
                   {...secondaryCTA}
                   size="lg"
-                  className="hero-cta-secondary px-8 py-4 rounded-lg font-semibold"
+                  className="hero-cta-secondary px-8 py-4 font-semibold"
                 />
               )}
+            </div>
+          )}
+
+          {stats && stats.length > 0 && (
+            <div className="hero-stats">
+              {stats.map((stat, i) => (
+                <div key={i} className="hero-stat">
+                  <span className="hero-stat-value">{stat.value}</span>
+                  <span className="hero-stat-label">{stat.label}</span>
+                </div>
+              ))}
             </div>
           )}
         </div>

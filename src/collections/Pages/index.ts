@@ -11,6 +11,8 @@ import { GlassHero } from '../../blocks/GlassHero/config'
 import { Features } from '../../blocks/Features/config'
 import { Testimonials } from '../../blocks/Testimonials/config'
 import { ContactCTA } from '../../blocks/ContactCTA/config'
+import { Gallery } from '../../blocks/Gallery/config'
+import { ProcessSteps } from '../../blocks/ProcessSteps/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -82,6 +84,8 @@ export const Pages: CollectionConfig<'pages'> = {
                 Features,
                 Testimonials,
                 ContactCTA,
+                Gallery,
+                ProcessSteps,
                 CallToAction,
                 Content,
                 MediaBlock,

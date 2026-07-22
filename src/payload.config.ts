@@ -13,6 +13,7 @@ import { Footer } from './Footer/config'
 import { Header } from './Header/config'
 import { SiteSettings } from './SiteSettings/config'
 import { plugins } from './plugins'
+import { migrations } from './migrations'
 import { defaultLexical } from '@/fields/defaultLexical'
 import { getServerSideURL } from './utilities/getURL'
 
@@ -76,6 +77,10 @@ export default buildConfig({
     pool: {
       connectionString: process.env.DATABASE_URI || '',
     },
+    // Pending migracje odpalają się przy starcie KONTENERA (runtime env PAYLOAD_MIGRATE=true
+    // w Coolify). Bez bramki odpalałyby się też podczas `next build` (NODE_ENV=production)
+    // i wisły na dev-bazie zbudowanej push-modem / padały w Dockerze bez bazy.
+    prodMigrations: process.env.PAYLOAD_MIGRATE === 'true' ? migrations : undefined,
   }),
   collections: [Pages, Posts, Media, Categories, Users],
   cors: [getServerSideURL()].filter(Boolean),
