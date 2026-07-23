@@ -40,6 +40,7 @@ prompty z `prompty/` (research-briefu, researcher-designu) zostają jako wywoły
 | `DESIGN_IMPROVEMENTS.md` | Ocena designu 7/10, co ograniczał boilerplate, **P0/P1/P2 upgrade'ów**, techniki „modern" (§4), checklist anty-nuda (§5) | ✅ sekcje §4-5 jako doc; P0-P2 = backlog kodu (patrz pkt 3) | ✅ lekcja „dlaczego strona wygląda tanio i jak to naprawić" |
 | `REFERENCJE.md` | Wzorzec: strony referencyjne DLA KLIENTA (link + „co bierzemy" + „czego nie robimy") | ⚪ jako szablon/przykład | ✅ krótki moduł „jak pokazać klientowi kierunek przed budową" |
 | `scripts/generate-images.mjs` | Zero-dep generator obrazów (Replicate, flux-1.1-pro-ultra, raw) | ✅ kopiuj 1:1 | ✅ lekcja o obrazach (pkt 5) |
+| `AGENT_PRIORS.md` | Wiedza „z głowy" agenta (model stacku, domena, defaulty designu) + PRIME-blok do wklejenia dowolnemu agentowi | ✅ kopiuj 1:1 | ✅ moduł „jak przygotować agenta do pracy" |
 | `HANDOFF_DO_KURSU.md` (ten plik) | — | ⚪ | wejście dla agenta kursu |
 
 ---
