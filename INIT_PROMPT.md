@@ -121,6 +121,12 @@ W ostatniej odpowiedzi podaj: co powstało (strony + bloki), decyzje designu (1 
 listę `[DO POTWIERDZENIA]` dla klienta, jak uruchomić (porty, admin login), zrzut ekranu.
 `PLAN.md` zostaje w repo jako dokumentacja przebiegu.
 
+## FAZA 6 (opcjonalna) — DEPLOY
+
+Gdy użytkownik chce wdrożenia: wykonaj checklistę z **`DEPLOYTIPS.md`** (sekcja 3) —
+punkt po punkcie, z hermetycznym buildem (sekcja 2 tamże) jako bramą przed
+dotknięciem Coolify. Persistent Storage na media konfiguruj PRZED pierwszym deployem.
+
 ---
 
 ## DEFINITION OF DONE

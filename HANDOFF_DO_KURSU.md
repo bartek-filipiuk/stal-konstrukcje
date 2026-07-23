@@ -143,8 +143,11 @@ Podział ról dokumentów (żeby kurs nie mieszał):
 ### Boilerplate (repo bazowe)
 - [ ] Backport kodu P0 (pkt 3.1–3.5): Gallery, GlassHero+, ProcessSteps, Features, rejestracje
 - [ ] Backport P1 (3.6–3.10): StickyCTA, Logo, meta-utils, tailwind fonts, wzorce seedu
-- [ ] Skopiuj: `INIT_PROMPT.md`, `DESIGNTIPS.md`, `scripts/generate-images.mjs`, `scripts/smoke.sh`
+- [ ] Skopiuj: `INIT_PROMPT.md`, `DESIGNTIPS.md`, `DEPLOYTIPS.md`, `scripts/generate-images.mjs`, `scripts/smoke.sh`
       (smoke: strony 2× + grep logu — łapie zombie-dev/stale-webpack, Field Note N)
+- [ ] Backport fixów deployowych z DEPLOYTIPS §1 (packageManager, PAYLOAD_MIGRATE, force-dynamic
+      bez generateStaticParams, Dockerfile ARG/seed-images/chown, SEED_SECRET, sitemap config,
+      sekwencyjny delete w seedzie) — wtedy checklista deployu skraca się do punktów 8–14
 - [ ] Dopisz „Field Notes A–N" do `PAGE_DEVTIPS.md`; `DESIGN_IMPROVEMENTS.md` §4–5 jako doc
 - [ ] `pnpm generate:types` + smoke: seed → 5 stron 200 → screenshot obu motywów
 - [ ] Rozważ P2.11 (dark-first w jednym pliku) — jeśli zrobisz, USUŃ Field Note A i krok [A] z INIT_PROMPT (nie ucz obejścia, które przestało istnieć)
