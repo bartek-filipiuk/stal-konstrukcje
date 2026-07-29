@@ -49,7 +49,8 @@ dowód trwałości = redeploy bez ponownego seedu + `curl` pliku → 200.
   `RUN mkdir -p public/media && chown nextjs:nodejs public/media`, inaczej Payload
   nie zapisze (kontener działa jako nextjs, wolumen byłby roota).
 - Seed endpoint bez guardu na prodzie = każdy może skasować treść →
-  `SEED_SECRET` (403 bez `?secret=`), w dev bez zmian.
+  `SEED_SECRET` (403 bez `?secret=`). Od gałęzi MCP guard jest **podwójny**:
+  sekret **oraz** zalogowany user z rolą `admin` (patrz §5).
 - Równoległe `deleteMany` w seedzie (Promise.all) → **deadlock Postgresa**, gdy pages
   referencują media. Kasowanie kolekcji sekwencyjnie.
 
@@ -76,7 +77,7 @@ Wszystkie fixy z sekcji 1 są już w tym repo — po backporcie do boilerplate'u
 2. [ ] `prodMigrations` z bramką `PAYLOAD_MIGRATE` + świeża migracja (`pnpm payload migrate:create`)
 3. [ ] `force-dynamic` na layout (frontend), zero `generateStaticParams`
 4. [ ] Dockerfile: `ARG/ENV NEXT_PUBLIC_*`, `COPY seed-images`, `chown public/media`
-5. [ ] Guard `SEED_SECRET` na `/next/seed`
+5. [ ] Guard na `/next/seed`: `SEED_SECRET` **i** rola `admin` (oba naraz)
 6. [ ] `next-sitemap.config.cjs` istnieje
 7. [ ] **Hermetyczny build (komenda wyżej) = EXIT 0**
 8. [ ] Commit + push (repo publiczne = zero konfiguracji deploy-keys)
@@ -86,7 +87,9 @@ Wszystkie fixy z sekcji 1 są już w tym repo — po backporcie do boilerplate'u
 10. [ ] **Persistent Storage w UI: `/app/public/media` — PRZED pierwszym deployem** (API beta.462 tego nie ma)
 11. [ ] Envy jednym batchem — pola: `is_buildtime` (true TYLKO dla NEXT_PUBLIC_*); domena przez PATCH `{"domains": "https://…"}`; wcześniej 1 call próbny
 12. [ ] Deploy + poll; przy fail → `/deployments/{uuid}` i grep logów po `ERROR`
-13. [ ] Seed raz: `curl "https://DOMENA/next/seed?secret=$SEED_SECRET"`
+13. [ ] **Nie seeduj produ** — seed kasuje całą treść, a od gałęzi MCP `/next/seed`
+    wymaga sekretu **i** sesji admina (sam `curl ...?secret=` → 403). Treść wchodzi
+    przez panel albo MCP; pierwszy user i bot MCP → §5.
 14. [ ] **Dowód trwałości mediów:** redeploy → `curl /api/media/file/...` → 200 bez ponownego seedu
 
 ## 4. Co rozważyć w boilerplacie długoterminowo
@@ -106,6 +109,10 @@ i tabele kluczy MCP, a na końcu backfilluje **wszystkich istniejących userów 
 
 1. **Deploy z `PAYLOAD_MIGRATE=true`** (runtime env w Coolify) — migracje lecą przy
    starcie kontenera. Po deployu sprawdź w panelu, że logowanie admina działa.
+⚠️ **Świeży deploy (pusta baza)**: w formularzu „create first user” trzeba od razu
+ustawić rolę **admin** — default to `editor`, a editor nie wejdzie do panelu (lockout;
+ratunek tylko przez SQL).
+
 2. **Bot ręcznie w panelu prod**: Users → Create → rola **editor**, email
    `mcp-agent@stal.qaci.pl`, hasło losowe (i tak nieużywane).
    ⚠️ **NIE odpalaj seeda na prodzie** — kasuje całą treść.
