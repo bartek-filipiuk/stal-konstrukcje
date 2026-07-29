@@ -90,7 +90,20 @@ pnpm build                  # Production build
 pnpm lint                   # ESLint check
 pnpm generate:types         # Regenerate TypeScript types from CMS schema
 pnpm payload migrate        # Run database migrations
+pnpm test:int               # Testy integracyjne (vitest) — patrz sekcja MCP
+pnpm payload run scripts/create-mcp-key.ts "label"   # Klucz do serwera MCP
+MCP_KEY=<klucz> ./scripts/mcp-smoke.sh [base-url]    # Smoke serwera MCP
 ```
+
+## MCP Server
+
+Strona wystawia serwer MCP pod `/api/mcp` — klient MCP (Claude Code, n8n…) zarządza
+przez niego treścią. Auth: `Authorization: Bearer <klucz>`; klucz pinujemy do
+user-bota `mcp-agent@<host>` z rolą `editor` (nigdy do admina). Uprawnienia
+per-klucz do kolekcji startują z FALSE — najszybciej ustawia je
+`scripts/create-mcp-key.ts`. Userzy mają role `admin`/`editor`; `/next/seed` i
+zarządzanie kontami tylko dla admina. Szczegóły (toole, zakres, rollout na prod):
+**PAGE_BOILERPLATE.md → MCP Server** i **DEPLOYTIPS.md → PROD ROLLOUT**.
 
 ## Docker & Database
 

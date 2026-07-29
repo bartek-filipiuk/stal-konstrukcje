@@ -1065,3 +1065,81 @@ PREVIEW_SECRET=...                                   # Draft preview auth
 9. Set site settings (contact, social)
 10. Run `pnpm generate:types`
 11. Test with `pnpm dev`
+
+---
+
+## MCP Server
+
+Strona wystawia serwer MCP pod `/api/mcp` (Streamable HTTP, oficjalny
+`@payloadcms/plugin-mcp`), więc klient MCP (Claude Code, Claude Desktop, n8n…)
+może zarządzać treścią. Konfiguracja: `src/plugins/mcp.ts`.
+
+### Auth
+
+Nagłówek `Authorization: Bearer <klucz>`; żądanie bez ważnego klucza jest odrzucane.
+Klucz wiąże się z user-botem `mcp-agent@<host z NEXT_PUBLIC_SERVER_URL>` (rola
+`editor`), którego zakłada seed. Hosty bez kropki dostają sufiks `.local` (walidator
+maila wymaga TLD): dev = `mcp-agent@localhost.local`, prod (`https://stal.qaci.pl`)
+= `mcp-agent@stal.qaci.pl`. Override: `MCP_BOT_EMAIL`. Nigdy nie pinuj klucza do
+admina — toole działają JAKO powiązany user.
+
+### Klucze
+
+```bash
+# Najszybsza droga: drukuje klucz RAZ, nadaje minimalny potrzebny zakres
+pnpm payload run scripts/create-mcp-key.ts "Claude Code"
+```
+
+Alternatywa: panel admina → **MCP → API Keys** → utwórz → podepnij bota → odhacz
+uprawnienia.
+
+⚠️ **Uprawnienia per-klucz do kolekcji i globali startują z FALSE** — świeży klucz
+nic nie znajdzie i nic nie zapisze, dopóki checkboxy nie zostaną odhaczone (to
+przyczyna #1 „klucz nie działa”). Checkboxy custom tooli i resource'a startują
+z TRUE; `uploadMediaFromUrl` tworzy media JAKO powiązany user pod normalną kontrolą
+dostępu (`media.create = authenticated`), nie z prawami roota.
+
+### Toole
+
+| Wzorzec | Dotyczy |
+|---------|---------|
+| `findPages`, `createPages`, `updatePages`, `deletePages` | pages |
+| te same 4 dla `Posts`, `Categories`, `Media`, `Redirects`, `Forms` | kolekcje CRUD |
+| `findFormSubmissions` | form-submissions (tylko odczyt — leady) |
+| `findHeader`/`updateHeader`, `findFooter`/`updateFooter`, `findSiteSettings`/`updateSiteSettings` | globale |
+| `uploadMediaFromUrl` | obraz z publicznego URL-a (max 10 MB) → dokument media |
+| `markdownToRichText` | markdown → Lexical JSON; zawsze dla pól richText |
+
+`users` i `search` świadomie NIE są wystawione. **Nie ma toola `getCollectionSchema`**
+— schematy pól i lista bloków siedzą w `inputSchema` każdego toola w `tools/list`.
+`tools/call` zwraca prozę z blokami ` ```json `, nie goły JSON.
+Resource `payload://content-guide` = przewodnik dla agenta (wymagane pola, drafty,
+pułapki locale, kształt relacji).
+
+### Role i surowy klucz na REST
+
+Userzy mają `role: admin | editor` (default `editor`). Tylko admin zarządza userami
+i kluczami MCP oraz może wołać `/next/seed` (inaczej 403). Bot MCP jest editorem:
+pełna treść, zero zarządzania kontami, zero seeda.
+Klucz MCP uwierzytelnia wyłącznie `/api/mcp` — zwykłe REST/GraphQL wymaga principala
+z kolekcji `users` (kolekcja kluczy: tylko admin; globale i kolekcje pluginów: zapisy
+za auth, publiczne odczyty bez zmian; odczyt form-submissions za auth, bo leady to PII;
+`payload-folders` i `payload-locked-documents` domknięte w `lockdownCoreCollections`).
+
+### Podpięcie klienta i smoke
+
+```bash
+claude mcp add --transport http stalmet https://stal.qaci.pl/api/mcp \
+  --header "Authorization: Bearer <klucz>"
+MCP_KEY=<klucz> ./scripts/mcp-smoke.sh https://stal.qaci.pl
+```
+
+Nowy blok wchodzi do schematów automatycznie. Nowa kolekcja wymaga wpisu w mapie
+`collections` w `src/plugins/mcp.ts` **oraz** nadania jej na kluczu
+(`scripts/create-mcp-key.ts` albo checkbox w MCP → API Keys).
+
+### Testy
+
+`pnpm test:int` (vitest, `tests/int/*`). Dwa testy z `mcp-endpoint.int.spec.ts`
+biją w żywy HTTP — potrzebny odpalony `pnpm dev` i `MCP_TEST_URL` wskazujący na jego
+port (u nas `MCP_TEST_URL=http://localhost:3005 pnpm test:int`).

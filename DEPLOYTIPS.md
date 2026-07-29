@@ -95,3 +95,28 @@ Wszystkie fixy z sekcji 1 są już w tym repo — po backporcie do boilerplate'u
   wolumenu, media przeżywają nawet zmianę serwera; jedna zmienna env więcej.
   Dla stron z realnymi klientami: prawdopodobnie właściwy default.
 - Skrypt `scripts/deploy-preflight.sh` = punkty 1–7 jako jeden runnable check.
+
+---
+
+## 5. PROD ROLLOUT — serwer MCP (kolumna `role` + klucze)
+
+Migracja `20260729_062040_mcp_roles` dodaje kolumnę `users.role` (default `editor`)
+i tabele kluczy MCP, a na końcu backfilluje **wszystkich istniejących userów na
+`admin`** — bez tego właściciel wypadłby z panelu (`access.admin = isAdmin`).
+
+1. **Deploy z `PAYLOAD_MIGRATE=true`** (runtime env w Coolify) — migracje lecą przy
+   starcie kontenera. Po deployu sprawdź w panelu, że logowanie admina działa.
+2. **Bot ręcznie w panelu prod**: Users → Create → rola **editor**, email
+   `mcp-agent@stal.qaci.pl`, hasło losowe (i tak nieużywane).
+   ⚠️ **NIE odpalaj seeda na prodzie** — kasuje całą treść.
+3. **Klucz**: MCP → API Keys → Create → `user` = bot z pkt 2 → odhacz uprawnienia
+   (kolekcje/globale startują z FALSE!) → zapisz i skopiuj klucz (widoczny raz).
+4. **Podpięcie klienta**:
+   ```bash
+   claude mcp add --transport http stalmet https://stal.qaci.pl/api/mcp \
+     --header "Authorization: Bearer <klucz>"
+   ```
+5. **Weryfikacja**: `MCP_KEY=<klucz> ./scripts/mcp-smoke.sh https://stal.qaci.pl`
+   → `OK: MCP smoke passed`.
+
+Rollback klucza: skasuj rekord w MCP → API Keys (natychmiast 401).
