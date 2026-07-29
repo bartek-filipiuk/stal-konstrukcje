@@ -50,6 +50,12 @@ export const seed = async ({
   }
 
   payload.logger.info(`— Creating demo admin user...`)
+
+  // Klucze MCP idą pierwsze: payload_mcp_api_keys.user_id jest NOT NULL, a FK ma
+  // ON DELETE SET NULL — kasowanie usera z podpiętym kluczem leci not-null violation,
+  // przez co drugi seed padał na duplikacie maila przy create.
+  await payload.delete({ collection: 'payload-mcp-api-keys', where: {} })
+
   await payload.delete({
     collection: 'users',
     depth: 0,
@@ -57,7 +63,43 @@ export const seed = async ({
   })
   await payload.create({
     collection: 'users',
-    data: { name: 'Admin', email: 'admin@example.com', password: 'admin123' },
+    data: {
+      name: 'Admin',
+      email: 'admin@example.com',
+      password: 'admin123',
+      // Bez tego defaultValue zrobiłby z demo-admina editora bez dostępu do panelu
+      role: 'admin',
+    },
+  })
+
+  // User-bot dla serwera MCP: rola editor (treść tak, users/seed nie).
+  // Hasło losowe — poświadczeniem jest klucz z panelu MCP -> API Keys,
+  // logowanie hasłem nie jest potrzebne.
+  const mcpHost = (() => {
+    let host = 'localhost'
+    try {
+      host = new URL(process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000').hostname
+    } catch {
+      // zostaje localhost
+    }
+    // Payload waliduje email regexem wymagającym TLD — samo "localhost" przechodzi walidację URL,
+    // ale nie maila. Dla hostów bez kropki dokładamy .local (zarezerwowane, mDNS).
+    return host.includes('.') ? host : `${host}.local`
+  })()
+
+  await payload.delete({
+    collection: 'users',
+    where: { email: { equals: `mcp-agent@${mcpHost}` } },
+  })
+
+  await payload.create({
+    collection: 'users',
+    data: {
+      name: 'MCP Agent',
+      email: `mcp-agent@${mcpHost}`,
+      password: crypto.randomUUID(),
+      role: 'editor',
+    },
   })
 
   payload.logger.info(`— Creating pages...`)
@@ -541,6 +583,7 @@ export const seed = async ({
 
   payload.logger.info('Seeded database successfully! (STALMET)')
   payload.logger.info('Admin: admin@example.com / admin123')
+  payload.logger.info(`MCP bot user: mcp-agent@${mcpHost} (klucz w panelu: MCP -> API Keys)`)
   payload.logger.info('Strony: Strona główna · Oferta · Realizacje · O firmie · Kontakt')
 }
 

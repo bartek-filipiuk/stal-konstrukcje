@@ -1,13 +1,15 @@
+import { headers } from 'next/headers'
 import { createLocalReq, getPayload } from 'payload'
 import { seed } from '@/endpoints/seed'
+import { isAdminUser } from '@/access/isAdmin'
 import config from '@payload-config'
 
 export const maxDuration = 60 // This function can run for a maximum of 60 seconds
 
-// Seed KASUJE i odtwarza całą treść. W produkcji wymaga sekretu:
+// Seed KASUJE i odtwarza całą treść. W produkcji wymaga dodatkowo sekretu:
 //   curl -X POST "https://domena/next/seed?secret=$SEED_SECRET"
 // Bez SEED_SECRET w env produkcyjny seed jest wyłączony całkowicie.
-function isAuthorized(request: Request): boolean {
+function hasSeedSecret(request: Request): boolean {
   if (process.env.NODE_ENV !== 'production') return true
   const secret = process.env.SEED_SECRET
   if (!secret) return false
@@ -16,13 +18,20 @@ function isAuthorized(request: Request): boolean {
 }
 
 export async function POST(request: Request): Promise<Response> {
-  if (!isAuthorized(request)) {
+  if (!hasSeedSecret(request)) {
     return new Response('Forbidden', { status: 403 })
   }
   const payload = await getPayload({ config })
 
+  // Seed kasuje i nadpisuje CAŁĄ bazę — tylko dla roli admin. Wyciek klucza
+  // MCP (user-bot, rola editor) nie może pozwolić na wipe prodowej bazy.
+  const { user } = await payload.auth({ headers: await headers() })
+  if (!user || !isAdminUser(user)) {
+    return new Response('Action forbidden.', { status: 403 })
+  }
+
   try {
-    const payloadReq = await createLocalReq({}, payload)
+    const payloadReq = await createLocalReq({ user }, payload)
     await seed({ payload, req: payloadReq })
     return Response.json({ success: true })
   } catch (e) {
