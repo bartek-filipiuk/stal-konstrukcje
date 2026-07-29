@@ -1,11 +1,14 @@
 import type { GlobalConfig } from 'payload'
 
 import { revalidateSiteSettings } from './hooks/revalidateSiteSettings'
+import { authenticated } from '@/access/authenticated'
 
 export const SiteSettings: GlobalConfig = {
   slug: 'site-settings',
   access: {
     read: () => true,
+    // Patrz Header: brak `update` = defaultAccess = wejście dla surowego klucza MCP.
+    update: authenticated,
   },
   fields: [
     {

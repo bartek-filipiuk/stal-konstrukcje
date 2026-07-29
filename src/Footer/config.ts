@@ -2,11 +2,14 @@ import type { GlobalConfig } from 'payload'
 
 import { link } from '@/fields/link'
 import { revalidateFooter } from './hooks/revalidateFooter'
+import { authenticated } from '@/access/authenticated'
 
 export const Footer: GlobalConfig = {
   slug: 'footer',
   access: {
     read: () => true,
+    // Patrz Header: brak `update` = defaultAccess = wejście dla surowego klucza MCP.
+    update: authenticated,
   },
   fields: [
     {
