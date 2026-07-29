@@ -22,6 +22,20 @@ export const Users: CollectionConfig = {
     useAsTitle: 'name',
   },
   auth: true,
+  hooks: {
+    beforeChange: [
+      async ({ data, operation, req }) => {
+        // Pierwszy user w pustej bazie MUSI być adminem. Pole `role` jest
+        // niezapisywalne dla niezalogowanego (field access), więc bez tego
+        // create-first-user zapisuje default 'editor' → nikt nie wejdzie do
+        // panelu (access.admin = isAdmin) i ratunkiem jest tylko SQL.
+        if (operation !== 'create') return data
+        const { totalDocs } = await req.payload.count({ collection: 'users' })
+        if (totalDocs === 0) return { ...data, role: 'admin' }
+        return data
+      },
+    ],
+  },
   fields: [
     {
       name: 'name',
