@@ -1,0 +1,41 @@
+# Auto-updaty zależności: same PR-y do ręcznego review — nigdy auto-merge,
+# deploy zawsze świadomy (Coolify bez webhooka). Security-PR-y przychodzą
+# natychmiast niezależnie od harmonogramu.
+version: 2
+updates:
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "Europe/Warsaw"
+    open-pull-requests-limit: 5
+    # Wersje w repo są pinowane dokładnie (bez ^) — podbijaj pin, nie range
+    versioning-strategy: increase
+    groups:
+      # KRYTYCZNE: payload + wszystkie @payloadcms/* muszą iść w JEDNYM PR —
+      # lockstep, plugin-mcp pinuje peerDependency payload 1:1. Osobne PR-y
+      # nigdy się nie zbudują.
+      payload:
+        patterns:
+          - "payload"
+          - "@payloadcms/*"
+      # Reszta minor+patch zbiorczo, żeby nie zalewać repo PR-ami
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
+        exclude-patterns:
+          - "payload"
+          - "@payloadcms/*"
+    ignore:
+      # Majory frameworka ręcznie i świadomie — nigdy z automatu
+      - dependency-name: "next"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react"
+        update-types: ["version-update:semver-major"]
+      - dependency-name: "react-dom"
+        update-types: ["version-update:semver-major"]
+    commit-message:
+      prefix: "Deps"

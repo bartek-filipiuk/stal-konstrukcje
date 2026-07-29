@@ -1143,3 +1143,13 @@ Nowy blok wchodzi do schematów automatycznie. Nowa kolekcja wymaga wpisu w mapi
 `pnpm test:int` (vitest, `tests/int/*`). Dwa testy z `mcp-endpoint.int.spec.ts`
 biją w żywy HTTP — potrzebny odpalony `pnpm dev` i `MCP_TEST_URL` wskazujący na jego
 port (u nas `MCP_TEST_URL=http://localhost:3005 pnpm test:int`).
+
+## Dependency Updates (Dependabot)
+
+`.github/dependabot.yml`: tygodniowe zgrupowane PR-y (security natychmiast).
+**Nigdy auto-merge; merge nie deployuje** (brak webhooka — deploy świadomie).
+Grupa `payload` = `payload` + wszystkie `@payloadcms/*` w JEDNYM PR (lockstep).
+Przy review PR-a payloadowego lokalnie: `pnpm ii && pnpm generate:types &&
+pnpm generate:importmap` (stale importMap psuje panel TYLKO na prodzie!),
+ewentualna migracja na scratch DB, `pnpm build && pnpm test:int`.
+Majory next/react wyłączone — podbijane ręcznie.
